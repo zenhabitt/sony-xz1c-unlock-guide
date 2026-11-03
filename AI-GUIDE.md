@@ -6,6 +6,106 @@
 
 ---
 
+## 机器可读规格
+
+```yaml
+target:
+  model: Sony Xperia XZ1 Compact (SO-02K, docomo)
+  codename: lilac
+  soc: MSM8998
+  required_rom: Android 8.0.0 / build 47.1.F.1.105
+  required_bootloader: "1306-5035_X_Boot_MSM8998_LA2.0_P_114"
+
+workspace:
+  env: KIT
+  layout:
+    tools: "${KIT}/tools"
+    firmware: "${KIT}/firmware"
+    backup: "${KIT}/backup"
+
+constants:
+  xfl_blob_size: 13153250
+  xfl_blob_sha256: c745a32721d68bb7499a0e929bd9bcfec307cb922d0c17c22f064a51e6e1a7c7
+  xperable_size_default: "0xf69880"
+  xperable_size_fallback: ["0xf49880","0xf59880","0xf79880","0xf89880","0xf99880"]
+
+phases:
+  - id: P0
+    name: env-check
+    cmd: "bash scripts/check_prereqs.sh"
+    success: "exit code 0"
+    on_fail: "see DOWNLOADS.md"
+
+  - id: P1
+    name: verify-rom
+    cmd: "adb shell getprop ro.build.id"
+    success: "== 47.1.F.1.105"
+    on_fail: "P1.5 flash docomo 8.0 (newflasher, all prompts n)"
+
+  - id: P2
+    name: p114-bootloader
+    cmd: "fastboot getvar version-bootloader"
+    success: "contains P_114"
+    on_fail: "flash p114 package; pick ABL variant matching bootdelivery (5ADA|5D31|C93B)"
+
+  - id: P3
+    name: temp-root-and-xfl
+    cmd: "adb push bindershell; ./bindershell; dd xfl-o77.mbn -> /dev/block/bootdevice/by-name/xfl"
+    success: "sha256 of first 13153250 bytes == xfl_blob_sha256"
+    on_fail: "re-push, re-dd; verify source file hash"
+
+  - id: P4
+    name: unlock
+    cmd: "xperable -v -V -B -U -s 0xf69880 -5 && xperable -v -V -c \"oem unlock Y\" -1 && xperable -v -V -c reboot -1"
+    success: "'patched successfully' then 'OKAY', and after reboot: unlocked == yes"
+    hard_rule: "NO reboot / NO unplug / NO other fastboot cmd between patch and unlock"
+    on_fail: "iterate -s values (see §7); never skip success check"
+
+  - id: P5
+    name: magisk
+    cmd: "boot_patch.sh boot.img && fastboot flash boot new-boot.img"
+    success: "adb shell magisk -v returns a version; pidof magiskd non-empty"
+    on_fail: "re-extract binaries from same APK; rollback boot"
+
+  - id: P6
+    name: lineageos
+    optional: true
+    cmd: "fastboot boot recovery.img && adb sideload rom.zip (then format data)"
+    success: "ro.lineage.version non-empty"
+    on_fail: "must sideload from Lineage recovery, not stock (E3004)"
+
+stop_conditions:
+  - "newflasher prints flash:bootloader FAILED"
+  - "device manager shows QUSB_BULK or 9008 (EDL)"
+  - "two consecutive P114 flashes fail with different errors"
+  - "three consecutive FAILCommand not allowed on oem unlock"
+  - "user asks to relock the bootloader"
+```
+
+**状态流转**
+
+```mermaid
+stateDiagram-v2
+    [*] --> P0: 准备工具与固件
+    P0 --> P1: 自检通过
+    P1 --> P1_flash: 不是 8.0
+    P1_flash --> P1
+    P1 --> P2: 已是 8.0
+    P2 --> P2_flash: 不是 P114
+    P2_flash --> P2
+    P2 --> P3: 已是 P114
+    P3 --> P4: XFL 哈希匹配
+    P3 --> P3: 哈希不符
+    P4 --> P4_retry: 未 patched
+    P4_retry --> P4: 换 -s 重试
+    P4 --> P5: unlocked=yes
+    P5 --> P6: 可选刷 ROM
+    P5 --> [*]: 完成
+    P6 --> [*]: 完成
+```
+
+---
+
 ## 0. 执行规则（先读）
 
 ```
