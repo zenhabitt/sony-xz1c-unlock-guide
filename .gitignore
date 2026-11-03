@@ -1,0 +1,35 @@
+# 固件与镜像（版权内容，禁止提交）
+firmware/
+*.sin
+*.mbn
+*.img
+*.bin
+*.ftf
+*.ta
+*.elf
+*.mbn.gz
+
+# 第三方工具二进制（请从上游获取）
+tools/
+*.exe
+*.apk
+*.dll
+*.so
+*.xz
+*.7z
+
+# 分区备份
+backup/
+*.dump
+*-current.*
+
+# 临时产物
+*.tmp
+*.log
+*.zip
+!*.md
+
+# 系统
+.DS_Store
+Thumbs.db
+desktop.ini
