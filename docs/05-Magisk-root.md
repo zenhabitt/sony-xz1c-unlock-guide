@@ -1,5 +1,7 @@
 # 05 · Magisk Root
 
+**中文** | [English](en/05-magisk-root.md)
+
 > 解锁之后 root 很简单：**给 boot.img 打补丁，刷回 boot 分区**。
 > 不动 system，不破坏 OTA。
 

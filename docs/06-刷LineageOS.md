@@ -1,5 +1,7 @@
 # 06 · 刷 LineageOS（可选）
 
+**中文** | [English](en/06-lineageos.md)
+
 > 解锁 + root 之后，刷不刷第三方 ROM 都行。
 > 这里记录的是实机走通的流程，**与原帖的 TWRP 流程不同**。
 

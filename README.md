@@ -1,5 +1,7 @@
 # Sony Xperia XZ1 Compact (SO-02K) · Bootloader 解锁 + Root 实录
 
+**中文** | [English](README.en.md)
+
 ![license](https://img.shields.io/badge/license-MIT-blue.svg)
 ![device](https://img.shields.io/badge/device-SO--02K%20%2F%20lilac-informational)
 ![status](https://img.shields.io/badge/verified-real%20device-success)
@@ -75,10 +77,14 @@ DRM 密钥、相机调校参数全部保留（官方解锁会擦掉）。
 
 ```
 sony-xz1c-unlock-guide/
-├─ README.md            ← 本文件
+├─ README.md            ← 本文件（中文）
+├─ README.en.md         英文版
 ├─ AI-GUIDE.md          ★ 给 AI/自动化的可执行状态机（Phase 0–6）
+├─ AI-GUIDE.en.md       英文版
 ├─ DOWNLOADS.md         ★ 外部文件来源 + SHA256（仓库不含二进制）
+├─ DOWNLOADS.en.md      英文版
 ├─ CHECKLIST.md         ★ 可打印的操作清单
+├─ CHECKLIST.en.md      英文版
 ├─ NOTICE.md            第三方归属与许可证
 ├─ LICENSE              MIT
 ├─ docs/
@@ -89,7 +95,8 @@ sony-xz1c-unlock-guide/
 │   ├─ 05-Magisk-root.md        boot.img 打补丁
 │   ├─ 06-刷LineageOS.md        第三方 ROM
 │   ├─ 07-排错手册.md           ★ 15 条实测踩坑
-│   └─ 08-回滚与还原.md         变砖分级与恢复
+│   ├─ 08-回滚与还原.md         变砖分级与恢复
+│   └─ en/                      以上 8 篇的英文版
 └─ scripts/
     ├─ check_prereqs.sh         工作区自检（会校验哈希）
     ├─ sweep_xperable.ps1       批量试 -s 值
@@ -97,6 +104,8 @@ sony-xz1c-unlock-guide/
     ├─ dump_bl.sh               备份 bootloader 分区
     └─ xfl_info.py              解析 boot 镜像 / SIN
 ```
+
+> 每个中文文件标题下都有 `中文 | English` 切换链接，英文文件同样有。
 
 ---
 

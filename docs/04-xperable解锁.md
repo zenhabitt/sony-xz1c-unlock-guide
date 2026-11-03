@@ -1,5 +1,7 @@
 # 04 · xperable 解锁 Bootloader ★核心
 
+**中文** | [English](en/04-xperable-unlock.md)
+
 > 在内存里把 Fastboot 打补丁，让它接受 `oem unlock`。
 > 不改分区、不擦 TA、不需要官方解锁码。
 

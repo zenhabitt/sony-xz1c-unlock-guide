@@ -1,5 +1,7 @@
 # 03 · 临时 root 与替换 XFL
 
+**中文** | [English](en/03-temp-root-and-xfl.md)
+
 > 目标：拿一个临时 root shell，把 **XFL 分区**开头换成 O77 blob。
 > 少了这步，xperable 只会输出 `test2 not hit`。
 

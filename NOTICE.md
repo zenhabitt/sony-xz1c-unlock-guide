@@ -1,5 +1,7 @@
 # NOTICE · 第三方归属与许可证
 
+**中文** | [English](#english-version)
+
 本仓库**只包含文档和脚本**（原创内容），不包含下列项目的二进制或源码。
 下面是流程中用到的上游项目及其许可证，使用时请遵守各自条款。
 
@@ -83,3 +85,51 @@
 
 - 文档与脚本：MIT（见 [LICENSE](LICENSE)）
 - 引用上游项目时已注明作者与许可证
+
+---
+
+## English version
+
+**This repository contains documentation and scripts only.** It does **not** bundle,
+mirror, or redistribute any binary, source archive, firmware image, or other copyrighted
+material from the projects below.
+
+### Upstream tools
+
+| Project | Author | License | Purpose |
+|---|---|---|---|
+| [xperable](https://github.com/j4nn/xperable) | j4nn | GPL-3.0 | CVE-2021-1931: patches Xperia ABL fastboot in memory so `oem unlock` is accepted |
+| [renoshell](https://github.com/j4nn/renoshell) (branch `CVE-2019-2215`) | j4nn | GPL-2.0 | CVE-2019-2215: temporary root shell |
+| [newflasher](https://github.com/munjeni/newflasher) | munjeni | MIT | flashes Sony firmware (`.sin`) in flash mode |
+| [Magisk](https://github.com/topjohnwu/Magisk) | John Wu | GPL-3.0 | boot-image patch based root |
+| [Android Platform Tools](https://developer.android.com/studio/releases/platform-tools) | Google | Android SDK terms | `adb`, `fastboot` |
+| [Zadig](https://zadig.akeo.ie/) | — | GPL (libwdi) | installs WinUSB for fastboot on Windows |
+
+### Firmware and system images
+
+Copyright belongs to Sony / NTT docomo / their respective owners. **Not provided or mirrored
+by this repository:**
+
+- Xperia XZ1 Compact (SO-02K) stock firmware (Android 8.0 / 47.1.F.1.105)
+- P114 bootloader package (`bootloader_*.sin`, `*.mbn`)
+- `xfl-o77.mbn` (Xperia Flash Loader blob)
+- any partition dump taken from a device (`xfl`, `abl`, `boot`, …)
+- LineageOS build artifacts (they contain proprietary vendor blobs)
+
+This repository only publishes **checksums** so you can confirm file integrity.
+
+### References
+
+- XDA thread: "Unlocking the Bootloader on Sony Xperia XZ1 Compact SO-02K (Docomo) Without
+  an Official Sony Unlock Code (Xperable)" —
+  <https://xdaforums.com/t/unlocking-the-bootloader-on-sony-xperia-xz1-compact-so-02k-docomo-without-an-official-sony-unlock-code-xperable.4794149/>
+- CVE-2021-1931 (used by xperable)
+- CVE-2019-2215 (used by bindershell)
+
+The documents here were rewritten from an actual device run; they are not a translation or
+copy of the material above. Differences from the original post (e.g. TWRP being unusable on
+this unit, Lineage recovery used instead) are noted inline.
+
+### This repository
+
+- Documentation and scripts: MIT (see [LICENSE](LICENSE))
